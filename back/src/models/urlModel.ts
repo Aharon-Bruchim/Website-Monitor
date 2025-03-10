@@ -21,7 +21,7 @@ export const UrlSchema = new Schema<IUrl>({
   },
   isAlive: {
     type: Boolean,
-    default: false,
+    required: false,
   },
   last_checked: {
     type: String,
