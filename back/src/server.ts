@@ -25,6 +25,9 @@ app.use(
   })
 );
 
+app.get("/isAlive", (req, res) => {
+  res.status(200).json('alive');
+});
 
 app.use("/url", urlRouter);
 startMonitoring();
