@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import axios from 'axios';
 import toast from 'react-hot-toast';
+import api from '../api/api';
 
 const useAddWebsite = (onWebsiteAdded: () => void) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -9,7 +9,7 @@ const useAddWebsite = (onWebsiteAdded: () => void) => {
     setIsLoading(true);
 
     try {
-      await axios.post('/api/websites', { name, url });
+      await api.post('/', { name, url });
       toast.success('Website added successfully');
       onWebsiteAdded();
     } catch (error) {

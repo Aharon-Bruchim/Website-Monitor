@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from "express";
-import { createResponse } from "../utils/utils";
 import ErrorResponse from "../utils/ErrorResponse";
 
 export const errorMiddleware = (err: any, req: Request, res: Response, next: NextFunction) => {
@@ -28,5 +27,5 @@ export const errorMiddleware = (err: any, req: Request, res: Response, next: Nex
   const message = statusCode === 500 ? "Internal Server Error" : err.message;
   if (statusCode === 500) console.error(err.stack);
 
-  res.status(statusCode).json(createResponse({}, message, false));
+  res.status(statusCode).json({ message });
 };

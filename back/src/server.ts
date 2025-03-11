@@ -20,7 +20,8 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "http:localhost:5173", 
+    // origin: "https:localhost:5173", 
+    origin: true, 
     credentials: true, 
   })
 );
@@ -29,7 +30,7 @@ app.get("/isAlive", (req, res) => {
   res.status(200).json('alive');
 });
 
-app.use("/website", websiteRouter);
+app.use("/websites", websiteRouter);
 startMonitoring();
 
 app.use(errorMiddleware);

@@ -21,7 +21,7 @@ export const updateWebsite = async (id: string, website: IWebsiteDto): Promise<I
 };
 
 export const updateStatus = async (id: string, isAlive: boolean) => {
-  const updatedWebsite = await websiteModel.findByIdAndUpdate(id, { is_online: isAlive }, { new: true });
+  const updatedWebsite = await websiteModel.findByIdAndUpdate(id, { isAlive: isAlive }, { new: true });
   return updatedWebsite;
 };
 
