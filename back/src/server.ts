@@ -20,7 +20,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "https://website-monitor-48kx.onrender.com", 
+    origin: "https:localhost:5173", 
     credentials: true, 
   })
 );
