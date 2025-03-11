@@ -1,6 +1,6 @@
 import axios from 'axios';
-import * as UrlService from '../services/websiteService';
-import { IUrl } from '../models/websiteModel';
+import * as WebsiteService from '../services/websiteService';
+import { IWebsite } from '../models/websiteModel';
 
 export const startMonitoring = async () => {
   console.log('Starting server monitoring...');
@@ -22,7 +22,7 @@ export const startMonitoring = async () => {
 async function checkAllServers() {
   try {
     console.log('Fetching servers from database...');
-    const servers: IUrl[] = await UrlService.getAllUrls();
+    const servers: IWebsite[] = await WebsiteService.getAllWebsites();
     console.log(`Found ${servers.length} servers to check`);
     
     const checkPromises = servers.map(async (server) => {
@@ -72,7 +72,7 @@ async function checkIfSiteIsAlive(url: string): Promise<boolean> {
 
 async function updateSiteStatus(serverId: string, isAlive: boolean): Promise<void> {
   try {
-    await UrlService.updateStatus(serverId, isAlive);
+    await WebsiteService.updateStatus(serverId, isAlive);
     console.log(`Updated status for server ID ${serverId}: ${isAlive ? 'active' : 'inactive'}`);
   } catch (error) {
     console.error(`Failed to update status for server ID ${serverId}:`, error);
