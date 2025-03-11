@@ -1,12 +1,11 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import { Navigation } from './components/Navigation';
-import { Dashboard } from './pages/Dashboard';
-import { AllWebsites } from './pages/AllWebsites';
+import  Navigation  from './components/Navigation';
+import  Dashboard  from './pages/Dashboard';
+import AllWebsites  from './pages/AllWebsites';
 
 const App: React.FC = () => {
-  
   return (
     <BrowserRouter>
       <div className="min-h-screen bg-gray-50">
@@ -25,3 +24,4 @@ const App: React.FC = () => {
 }
 
 export default App;
+

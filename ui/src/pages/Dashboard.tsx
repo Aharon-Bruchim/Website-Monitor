@@ -1,42 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Activity } from 'lucide-react';
-import { Website } from '../types';
 import { AddWebsiteForm } from '../components/AddWebsiteForm';
-import { WebsiteList } from '../components/WebsiteList';
+import useWebsites from '../hooks/useWebsites';
 
-export const Dashboard: React.FC = () => {
-  
-  const [websites, setWebsites] = useState<Website[]>([]);
-
-  const fetchWebsites = async () => {
-    const { data, error } = await supabase
-      .from('websites')
-      .select('*')
-      .order('created_at', { ascending: false })
-      .limit(5);
-
-    if (error) {
-      console.error('Error fetching websites:', error);
-      return;
-    }
-
-    setWebsites(data || []);
-  };
-
-  useEffect(() => {
-    fetchWebsites();
-
-    const subscription = supabase
-      .channel('websites')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'websites' }, () => {
-        fetchWebsites();
-      })
-      .subscribe();
-
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, []);
+const Dashboard: React.FC = () => {
+  const { error, fetchWebsites } = useWebsites();
 
   return (
     <div className="space-y-8">
@@ -46,10 +14,9 @@ export const Dashboard: React.FC = () => {
       </div>
 
       <AddWebsiteForm onWebsiteAdded={fetchWebsites} />
-      <WebsiteList 
-        websites={websites}
-        onWebsiteDeleted={fetchWebsites}
-      />
+      {error && <p className="text-red-500">{error}</p>}
     </div>
   );
-}
+};
+
+export default Dashboard;

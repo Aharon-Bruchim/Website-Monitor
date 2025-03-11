@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { PlusCircle } from 'lucide-react';
-import { supabase } from '../lib/supabase';
-import toast from 'react-hot-toast';
+import useAddWebsite from '../hooks/useAddWebsite';
 
 interface AddWebsiteFormProps {
   onWebsiteAdded: () => void;
@@ -10,29 +9,13 @@ interface AddWebsiteFormProps {
 export function AddWebsiteForm({ onWebsiteAdded }: AddWebsiteFormProps) {
   const [url, setUrl] = useState('');
   const [name, setName] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const { addWebsite, isLoading } = useAddWebsite(onWebsiteAdded);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-
-    try {
-      const { error } = await supabase
-        .from('websites')
-        .insert([{ url, name }]);
-
-      if (error) throw error;
-
-      toast.success('Website added successfully');
-      setUrl('');
-      setName('');
-      onWebsiteAdded();
-    } catch (error) {
-      toast.error('Failed to add website');
-      console.error('Error:', error);
-    } finally {
-      setIsLoading(false);
-    }
+    await addWebsite(name, url);
+    setUrl('');
+    setName('');
   };
 
   return (

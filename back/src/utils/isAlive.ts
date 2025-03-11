@@ -1,6 +1,6 @@
 import axios from 'axios';
-import * as UrlService from '../services/urlService';
-import { IUrl } from '../models/urlModel';
+import * as UrlService from '../services/websiteService';
+import { IUrl } from '../models/websiteModel';
 
 export const startMonitoring = async () => {
   console.log('Starting server monitoring...');

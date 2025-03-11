@@ -3,7 +3,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import { createServer } from "http";
 import dotenv from "dotenv";
-import  urlRouter  from "./routes/urlRouter";
+import  websiteRouter  from "./routes/websiteRouter";
 import { errorMiddleware } from "./middleware/errorHandler";
 import { connectDB } from "./config/db";
 import { startMonitoring } from "./utils/isAlive";
@@ -20,7 +20,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "http://localhost:5173", 
+    origin: "https://website-monitor-48kx.onrender.com", 
     credentials: true, 
   })
 );
@@ -29,7 +29,7 @@ app.get("/isAlive", (req, res) => {
   res.status(200).json('alive');
 });
 
-app.use("/url", urlRouter);
+app.use("/website", websiteRouter);
 startMonitoring();
 
 app.use(errorMiddleware);

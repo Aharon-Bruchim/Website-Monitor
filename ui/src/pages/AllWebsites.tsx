@@ -1,40 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { List } from 'lucide-react';
-import { supabase } from '../lib/supabase';
-import { Website } from '../types';
 import { WebsiteList } from '../components/WebsiteList';
+import useWebsites from '../hooks/useWebsites';
 
-export function AllWebsites() {
-  const [websites, setWebsites] = useState<Website[]>([]);
-
-  const fetchWebsites = async () => {
-    const { data, error } = await supabase
-      .from('websites')
-      .select('*')
-      .order('created_at', { ascending: false });
-
-    if (error) {
-      console.error('Error fetching websites:', error);
-      return;
-    }
-
-    setWebsites(data || []);
-  };
-
-  useEffect(() => {
-    fetchWebsites();
-
-    const subscription = supabase
-      .channel('websites')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'websites' }, () => {
-        fetchWebsites();
-      })
-      .subscribe();
-
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, []);
+const AllWebsites: React.FC = () => {
+  const { websites, fetchWebsites } = useWebsites();
 
   return (
     <div className="space-y-8">
@@ -50,3 +20,5 @@ export function AllWebsites() {
     </div>
   );
 }
+
+export default AllWebsites;

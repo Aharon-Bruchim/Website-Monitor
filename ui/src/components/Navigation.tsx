@@ -2,11 +2,8 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Activity, List } from 'lucide-react';
 
-export const Navigation: React.FC = () =>
-{
+const Navigation: React.FC = ()  => {
   return (
-  
-  
     <nav className="bg-white shadow-sm">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
@@ -51,3 +48,5 @@ export const Navigation: React.FC = () =>
     </nav>
   );
 }
+
+export default Navigation;
