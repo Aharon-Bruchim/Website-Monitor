@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
-import { Website } from '../types';
+import  { IWebsiteDto }  from './../types/websiteDto'
 import api from '../api/api';
 
 const useWebsites = () => {
-  const [websites, setWebsites] = useState<Website[]>([]);
+  const [websites, setWebsites] = useState<IWebsiteDto[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   const fetchWebsites = async () => {
     try {
-      const response = await api.get<Website[]>('/', {
+      const response = await api.get<IWebsiteDto[]>('/', {
         params: { limit: 5, order: 'desc' }
       });
       setWebsites(response.data);
